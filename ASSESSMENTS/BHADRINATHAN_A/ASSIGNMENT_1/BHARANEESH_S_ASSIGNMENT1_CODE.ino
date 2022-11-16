@@ -1,6 +1,5 @@
 int t=2;
 int e=3;
-
 void setup()
 {
   Serial.begin(9600);
@@ -11,82 +10,79 @@ void setup()
 
 void loop()
 {
-  //ultrasonic sensor
+  //ultrasonic sensor Code
   digitalWrite(t,LOW);
   digitalWrite(t,HIGH);
   delayMicroseconds(10);
   digitalWrite(t,LOW);
   float dur=pulseIn(e,HIGH);
-  float dis=(dur*0.0343)/2;
+  int dis = dur * 0.034 / 2;
   Serial.print("Distance is: ");
-  Serial.println(dis);
+  Serial.print(dis);
   
-    //LED ON
-  if(dis>=100)
+    //LED ON Code
+  if(dis<=10)
   {
     digitalWrite(8,HIGH);
+    
+  }
+  else{
     digitalWrite(7,HIGH);
   }
   
-  //Buzzer For ultrasonic Sensor
-  if(dis>=100)
+  //Buzzer For ultrasonic Sensor Code
+  if(dis<=30)
   {
-  for(int i=0; i<=30000; i=i+10)
+  for(int i=0; i<=40; i=i+10)
   {
   tone(12,i);
   delay(1000);
+  noTone(12);
+  delay(1000);
   }
-  }
-  
-  else if(dis<=100){
-  	noTone(12);
-  	delay(1000);
   }
    
-    //Temperate Sensor
+    //Temperate Sensor Code
   double a= analogRead(A0);
-  double t=(((a/1024)*5)-0.5)*100;
+  double tem=(((a/1024)*5)-0.5)*100;
   Serial.print("Temp Value: ");
-  Serial.println(t);
+  Serial.println(tem);
   delay(1000);
   
-  //LED ON
-  if(t>=100)
+  //LED ON Code
+  if(t>=38)
   {
     digitalWrite(8,HIGH);
+    
+  }
+  else
+  {
     digitalWrite(7,HIGH);
   }
   
-  //Buzzer for Temperature Sensor
-  if(t>=100)
+  //Buzzer for Temperature Sensor Code
+  if(tem>=38)
   {
-  for(int i=0; i<=30000; i=i+10)
+    digitalWrite(7,LOW);
+    digitalWrite(8,HIGH);
+  for(int i=0; i<=30; i=i+10)
   {
   tone(12,i);
   delay(1000);
-
+  noTone(12);
+  delay(1000);
   }
-  }
-  else if(t<100){
-    noTone(12);
-    delay(1000);
   }
 
-   //LED OFF
-  if(t<100)
+   //LED OFF Code
+  if(t<38)
   {
     digitalWrite(8,LOW);
+    digitalWrite(7,HIGH);
+  }
+  else
+  {
+    digitalWrite(8,HIGH);
     digitalWrite(7,LOW);
   }
 }
-  
-  
-  
- 
-  
-  
-  
- 
-  
- 
- 
